@@ -57,11 +57,7 @@ Description:
 The flame that burns at the tip of its tail is an indication of its emotions. 
 The flame wavers when Charmander is enjoying itself. 
 If the Pokémon becomes enraged, the flame burns fiercely.
-
 """
-
-
-
 
 pokemon = [
   {
@@ -31845,5 +31841,49 @@ pokemon = [
       "hires": "https://raw.githubusercontent.com/Purukitto/pokemon-data.json/master/images/pokedex/hires/898.png"
     }
   }
-]
+] 
 
+def main():
+  request = 0
+  choose = input("Choose a pokemon by\n1. ID\n2. English Name\n\nChoice: ")
+  if choose == '1':
+    pokemonID = input("\nEnter the ID of your Pokemon: ")
+    while type(pokemonID) == str:
+      try:
+        pokemonID = int(pokemonID)
+        for i in pokemon:
+          if i["id"] == pokemonID:
+            request = i
+        print(i)
+        if request == 0:
+          raise KeyError("no")
+      except:
+        pokemonID= input("\nSorry, I could not find a pokemon with that ID please enter a new ID nummber.\nEnter the ID of your Pokemon: ")
+      print(f'\n{(request["name"]["english"]).upper()} I CHOOSE YOU!')
+      if len(request["type"]) == 2:
+        print(f'{request["name"]["english"]} is a {request["type"][0]} and {request["type"][1]} type Pokemon')
+      else:
+        print(f'{request["name"]["english"]} is a {request["type"][0]} type Pokemon')
+      print(f'HP {request["base"]["HP"]}\nAttack {request["base"]["Attack"]}\nDefense {request["base"]["Defense"]}\nSp. Attack {request["base"]["Sp. Attack"]}\nSp. Defense {request["base"]["Sp. Defense"]}\nSpeed {request["base"]["Speed"]}')
+      desc = (request["description"]).replace(". ", ".\n")
+      print(f'Description:\n{desc}')
+      break
+  elif choose == '2':
+    pokemonName = input("\nEnter the name of your Pokemon: ")
+    while type(request) == int:
+      for i in pokemon:
+        if i["name"]["english"] == pokemonName.capitalize():
+          request = i
+      if request == 0:
+        pokemonName= input("\nSorry, I could not find a pokemon with that name please enter a new name or duble check your spelling.\nEnter the name of your Pokemon: ")
+    print(f'\n{(request["name"]["english"]).upper()} I CHOOSE YOU!')
+    if len(request["type"]) == 2:
+      print(f'{request["name"]["english"]} is a {request["type"][0]} and {request["type"][1]} type Pokemon')
+    else:
+      print(f'{request["name"]["english"]} is a {request["type"][0]} type Pokemon')
+    print(f'HP {request["base"]["HP"]}\nAttack {request["base"]["Attack"]}\nDefense {request["base"]["Defense"]}\nSp. Attack {request["base"]["Sp. Attack"]}\nSp. Defense {request["base"]["Sp. Defense"]}\nSpeed {request["base"]["Speed"]}')
+    desc = (request["description"]).replace(". ", ".\n")
+    print(f'Description:\n{desc}')
+
+if __name__ == '__main__':
+  main()
